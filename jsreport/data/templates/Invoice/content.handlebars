@@ -71,5 +71,15 @@ incoming API request.
                 Total: ${{total items}}
             </td>
         </tr>
+        {{#each usuarios}}
+        <tr class="item">
+            <td>
+                {{name}}
+            </td>
+            <td>
+                {{rol}}
+            </td>
+        </tr>
+        {{/each}}
     </table>
 </div>

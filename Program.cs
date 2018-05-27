@@ -31,6 +31,16 @@ namespace ConsoleApp
             Console.WriteLine("Rendering custom report fully described through the request object into customReport.pdf");
             var customReport = rs.RenderAsync(CustomRenderRequest).Result;
             customReport.Content.CopyTo(File.OpenWrite("customReport.pdf"));
+
+            byte[] pdfByte = ReadFully(customReport.Content);
+        }
+        private static byte[] ReadFully(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
+            }
         }
 
         private static RenderRequest CustomRenderRequest = new RenderRequest()
@@ -64,8 +74,17 @@ namespace ConsoleApp
             },
             items = new[]
             {
+                new { name = "Website design", price = 300 },
                 new { name = "Website design", price = 300 }
-            }
+            },
+            usuarios = new[]
+            {
+                new { name = "Boris G", rol = "Proyecto"},
+                new { name = "Anya B", rol = "Revisó" },
+                new { name = "Valentina", rol = "Supervisó" },
+                new { name = "Nicolás", rol = "Autorizó" }
+            },
+
         };
     }
 }
